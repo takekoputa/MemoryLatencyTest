@@ -21,6 +21,9 @@ extern uint32_t latencytest(uint64_t iterations, uint64_t *arr) __attribute((ms_
 #elif defined(__i386) || defined(__i686)
 extern void preplatencyarr(uint32_t *arr, uint32_t len) __attribute__((fastcall));
 extern uint32_t latencytest(uint32_t iterations, uint32_t *arr) __attribute((fastcall));
+#else // if not x86, emit stub functions
+void preplatencyarr(uint32_t *arr, uint32_t len) {}
+uint32_t latencytest(uint32_t iterations, uint32_t *arr) { return 0; }
 #endif
 
 int default_test_sizes[37] = { 2, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 600, 768, 1024, 1536, 2048,
