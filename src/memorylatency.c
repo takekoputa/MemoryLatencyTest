@@ -10,24 +10,11 @@
 #include <gem5/m5ops.h>
 #endif
 
-#if defined(__i386) || defined(__i686)
-int32_t ITERATIONS = 50000000;
-typedef float floating_t;
-#else
 int32_t ITERATIONS = 100000000;
 typedef double floating_t;
-#endif
 
-#ifdef __x86_64
-extern void preplatencyarr(uint64_t *arr, uint32_t len) __attribute__((ms_abi));
-extern uint32_t latencytest(uint64_t iterations, uint64_t *arr) __attribute((ms_abi));
-#elif defined(__i386) || defined(__i686)
-extern void preplatencyarr(uint32_t *arr, uint32_t len) __attribute__((fastcall));
-extern uint32_t latencytest(uint32_t iterations, uint32_t *arr) __attribute((fastcall));
-#else // if not x86, emit stub functions
 void preplatencyarr(uint32_t *arr, uint32_t len) {}
 uint32_t latencytest(uint32_t iterations, uint32_t *arr) { return 0; }
-#endif
 
 int default_test_sizes[37] = { 2, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 600, 768, 1024, 1536, 2048,
                                3072, 4096, 5120, 6144, 8192, 10240, 12288, 16384, 24567, 32768, 65536, 98304,
@@ -38,10 +25,6 @@ floating_t RunTest(uint32_t size_kb, uint32_t iterations, bool useAsm);
 int main(int argc, char* argv[]) {
     int maxTestSizeMB = 0;
     bool useAsm = false;
-
-#if defined(__x86_64) || defined(__i386) || defined(__i686)
-    useAsm = true;
-#endif
 
     printf("Version:\tv%s\n", ver);
     printf("Platform:\t%s\n", plat);

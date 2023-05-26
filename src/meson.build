@@ -1,12 +1,14 @@
 sources = ['memorylatency.c']
 
-if (host_machine.cpu_family() == 'x86_64')
-    sources += 'memorylatency-x86_64.s'
-elif (host_machine.cpu_family() == 'x86')
-    sources += 'memorylatency-x86.s'
+binary_suffix = ''
+
+m5_build_path = '' + get_option('m5_build_path')
+gem5_include_dir = '' + get_option('gem5_include_dir')
+if (m5_build_path != '') and (gem5_include_dir != '')
+  binary_suffix += '.m5'
 endif
 
-executable('memorylatency-' + host_machine.cpu(),
+executable('memorylatency' + binary_suffix,
            sources,
            c_args: default_cflags,
            link_args: default_ldflags + ['-lm'],
