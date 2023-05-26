@@ -9,5 +9,5 @@ endif
 executable('memorylatency-' + host_machine.cpu(),
            sources,
            c_args: default_cflags,
-           link_args: ['-lm'],
+           link_args: default_ldflags + ['-lm'],
            install : true)

@@ -1,0 +1,3 @@
+option('gem5_include_dir', type: 'string', value: '', description: 'Path to gem5 include dir, e.g. gem5/include')
+option('m5_build_path', type: 'string', value: '', description: 'Path to m5 build, e.g. gem5/util/m5/build/arm64/')
+

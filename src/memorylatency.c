@@ -6,6 +6,9 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+#ifdef GEM5_ANNOTATION
+#include <gem5/m5ops.h>
+#endif
 
 #if defined(__i386) || defined(__i686)
 int32_t ITERATIONS = 50000000;
@@ -87,6 +90,9 @@ int main(int argc, char* argv[]) {
     }
 
     printf("Region,Latency (ns)\n");
+#ifdef GEM5_ANNOTATION
+    m5_work_begin(0,0);
+#endif
     for (long unsigned int i = 0; i < sizeof(default_test_sizes) / sizeof(int); i++) {
         if (maxTestSizeMB == 0 || default_test_sizes[i] <= maxTestSizeMB * 1024) {
             floating_t result = RunTest(default_test_sizes[i], ITERATIONS, useAsm);
@@ -100,6 +106,9 @@ int main(int argc, char* argv[]) {
             break;
         }
     }
+#ifdef GEM5_ANNOTATION
+    m5_work_end(0,0);
+#endif
 
 #ifdef _WIN32
     printf("\nPress the ENTER key to continue...");
