@@ -24,7 +24,7 @@ The compiled binary will be in `build/src`.
 To build the m5 library,
 
 ```bash
-cd gem5/util/m5/build/"isa"/out # "isa" could be one of {x86, arm64, riscv64}
+cd gem5/util/m5/build/"isa"/out # "isa" could be one of {x86, arm64, riscv}
 ```
 
 Run the following:
